@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html language="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+        <title>Simple RPS</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/hmac.js"></script>
+        <style>
+            .dropbtn {
+              background-color: #3498DB;
+              color: white;
+              padding: 16px;
+              font-size: 16px;
+              border: none;
+              cursor: pointer;
+            }            
+            .dropbtn:hover, .dropbtn:focus {
+              background-color: #2980B9;
+            }            
+            .dropdown {
+              position: relative;
+              display: inline-block;
+            }            
+            .dropdown-content {
+              display: none;
+              position: absolute;
+              background-color: #f1f1f1;
+              min-width: 160px;
+              overflow: auto;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+            }            
+            .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+            }            
+            .dropdown a:hover {background-color: #ddd;}            
+            .show {display: block;}
+            </style>
+    </head>
+<body>
+    <form onsubmit="return false;">
+        <div class="dropdown">
+            <button id="dropDown" onclick="ShowDropdown()" class="dropbtn">Rock</button>
+            <div id="options" class="dropdown-content">
+              <a onclick="ChooseOption(this)">Rock</a>
+              <a onclick="ChooseOption(this)">Paper</a>
+              <a onclick="ChooseOption(this)">Scissors</a>
+            </div>
+          </div><br><br>
+        <label for="gameHash">Game Seed:</label><br>
+        <input type="text" name="gameHash" id="gameHash" value="Game_Seed" style="width: 500px;" onkeyup="Regenerate()"/><br><br>
+        <label for="outputHash" >Output Hash:</label><br>
+        <input type="text" name="outputHash" id="outputHash" style="width: 500px;" /><br><br>
+    </form>
+        <script>            
+            var GameHash = document.getElementById('gameHash');
+            var OutputHash = document.getElementById('outputHash');
+            OutputHash.disabled = true
+            var Dropdown = document.getElementById('dropDown');
+            var Choice = Dropdown.innerText;
+            var DropdownContent = document.getElementsByClassName('dropdown-content');
+            var Options = document.getElementById("options");
+            Regenerate();
+            function ShowDropdown() {
+                Options.classList.toggle("show");
+            }
+            function ChooseOption(el) {
+                Choice = el.innerText;
+                Regenerate();
+                Dropdown.innerText = Choice;
+            }
+            function Regenerate(){
+                    OutputHash.value = CryptoJS.SHA256(Choice + '|' + GameHash.value).toString();
+                    OutputHash.addEventListener('change', function() {  Regenerate();
+                });
+            }
+            window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var i;                
+                for (i = 0; i < DropdownContent.length; i++) {
+                    var OpenDropdown = DropdownContent[i];
+                        if (OpenDropdown.classList.contains('show')) {
+                            OpenDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>        
+    </body>
+</html>
