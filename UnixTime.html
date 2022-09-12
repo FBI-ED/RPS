@@ -23,7 +23,11 @@
             EventSeed = document.getElementById('EventSeed'), Hash = document.getElementById('Hash');
             Hash.disabled = true;
             EventInitiator.disabled = true;
+
             EventSeed.addEventListener('change', (event) => {
+               Generate();
+            });
+            EventSeed.addEventListener('touchend', (event) => {
                Generate();
             });
             document.getElementById("EventInitiator").value=Date.now().toString();
