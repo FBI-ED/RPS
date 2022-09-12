@@ -6,11 +6,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256.js"></script>
     </head>
 <body>
-<script>
-   setInterval(() => {   
-      document.getElementById("EventInitiator").value=Date.now().toString();
-      Generate();
-   }, 60000);
+<script> setInterval(() => { document.getElementById("EventInitiator").value=Date.now().toString(); Generate(); }, 60000);
 </script>
         <label for="EventInitiator" >Unix Time:</label><br>
         <input type="text" name="EventInitiator" id="EventInitiator" value="Event Initiator" style="width: 500px;"><br><br>
@@ -23,13 +19,7 @@
             EventSeed = document.getElementById('EventSeed'), Hash = document.getElementById('Hash');
             Hash.disabled = true;
             EventInitiator.disabled = true;
-
-            EventSeed.addEventListener('change', (event) => {
-               Generate();
-            });
-            EventSeed.addEventListener('touchend', (event) => {
-               Generate();
-            });
+            EventSeed.addEventListener('change', (event) => { Generate(); });
             document.getElementById("EventInitiator").value=Date.now().toString();
             Generate();
             function Generate(){
