@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Provable Fairness</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256.js"></script>
+    </head>
+<body>
+<script>
+   setInterval(() => {   
+      document.getElementById("EventInitiator").value=Date.now().toString;
+   }, 1000);
+</script>
+        <label for="EventInitiator" >Unix Time:</label><br>
+        <input type="text" name="EventInitiator" id="EventInitiator" value="Event Initiator" style="width: 500px;"><br><br>
+        <label for="EventSeed" >Event Seed:</label><br>
+        <input type="text" name="EventSeed" id="EventSeed" value="Event Seed" style="width: 500px;" onchange="Generate()"><br><br>
+        <label for="Hash" >Hash:</label><br>
+        <input type="text" name="Hash" id="Hash" style="width: 500px;" />
+        <script>
+            var EventInitiator = document.getElementById('EventInitiator'), 
+            EventSeed = document.getElementById('EventSeed'), Hash = document.getElementById('Hash');
+            Hash.disabled = true;
+            EventInitiator.disabled = true;
+            Generate();
+            function Generate(){
+                Hash.value = CryptoJS.SHA256(EventInitiator.value + EventSeed.value).toString();
+                Hash.addEventListener('change', () => Generate() );
+            }
+        </script>        
+    </body>
+</html>
