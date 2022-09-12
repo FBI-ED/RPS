@@ -23,6 +23,7 @@
             EventSeed = document.getElementById('EventSeed'), Hash = document.getElementById('Hash');
             Hash.disabled = true;
             EventInitiator.disabled = true;
+            document.getElementById("EventInitiator").value=Date.now().toString();
             Generate();
             function Generate(){
                 Hash.value = CryptoJS.SHA256(EventInitiator.value + EventSeed.value).toString();
