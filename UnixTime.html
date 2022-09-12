@@ -13,7 +13,7 @@
    }, 60000);
 </script>
         <label for="EventInitiator" >Unix Time:</label><br>
-        <input type="text" name="EventInitiator" id="EventInitiator" value="Event Initiator" style="width: 500px;" onkeydown="Generate()"><br><br>
+        <input type="text" name="EventInitiator" id="EventInitiator" value="Event Initiator" style="width: 500px;"><br><br>
         <label for="EventSeed" >Event Seed:</label><br>
         <input type="text" name="EventSeed" id="EventSeed" value="Event Seed" style="width: 500px;"><br><br>
         <label for="Hash" >Hash:</label><br>
@@ -23,6 +23,9 @@
             EventSeed = document.getElementById('EventSeed'), Hash = document.getElementById('Hash');
             Hash.disabled = true;
             EventInitiator.disabled = true;
+            EventSeed.addEventListener('change', (event) => {
+               Generate();
+            });
             document.getElementById("EventInitiator").value=Date.now().toString();
             Generate();
             function Generate(){
